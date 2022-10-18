@@ -72,10 +72,10 @@ public class KredytBB {
 		}
 	}
 
-	// Go to "showresult" if ok
+	
 	public String oblicz() {
 		if (obliczRate()) {
-			return "showresult";
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Wynik: " + rata, null));
 		}
 		return null;
 	}
