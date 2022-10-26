@@ -6,36 +6,45 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	>
-<h:head>
-	<title>Kalkulator Kredytowy</title>
-</h:head>
-<h:body>
 
-	<p:panel header="Oblicz Ratę">
+<ui:composition template="/templates/page-template.xhtml">
 
-	<h:form id="bla">
-		<h:panelGrid id="grid" columns="3" cellpadding="7">
+	<ui:define name="pageContent">
+
+		<p:panel header="Oblicz Ratę">
+
+		<h:form id="bla">
+			<h:panelGrid id="grid" columns="3" cellpadding="7">
 		
-		<p:outputLabel for="kwo" value="Kwota kredytu (PLN):" />
-  		<p:inputText value="#{kredytBB.kwota}" id="kwo" required="true" requiredMessage="Wpisz kwotę"/>
-  		<p:message for="kwo"/>
+				<p:outputLabel for="kwo" value="Kwota kredytu (PLN):" />
+  				<p:inputText value="#{kredytBB.kwota}" id="kwo" required="true" requiredMessage="Wpisz kwotę" 
+  				converterMessage="Wartość musi być liczbą" validatorMessage="Kwota musi się mieścić w zakresie od 5 do 250 tysięcy">
+  				<f:validateDoubleRange minimum="5000" maximum="250000"/>
+  				</p:inputText>
+  				<p:message for="kwo"/>
   		
-  		<p:outputLabel for="okr" value="Okres kredytu (miesiące):" />
-  		<p:inputText value="#{kredytBB.okres}" id="okr" required="true" requiredMessage="Wpisz okres"/>
-		<p:message for="okr"/>
+  				<p:outputLabel for="okr" value="Okres kredytu (miesiące):" />
+  				<p:inputText value="#{kredytBB.okres}" id="okr" required="true" requiredMessage="Wpisz okres" 
+  				converterMessage="Wartość musi być liczbą całkowitą" validatorMessage="Okres musi być między 6 a 120 miesięcy">
+  				<f:validateLongRange minimum="6" maximum="120"/>
+  				</p:inputText>
+				<p:message for="okr"/>
 		
-		<p:outputLabel for="opr" value="Oprocentowanie w postaci ułamka:" />
-		<p:inputText value="#{kredytBB.procent}" id="opr" required="true" requiredMessage="Wpisz oprocentowanie"/>
-		<p:message for="opr"/>
+				<p:outputLabel for="opr" value="Oprocentowanie w postaci ułamka:" />
+				<p:inputText value="#{kredytBB.procent}" id="opr" required="true" requiredMessage="Wpisz oprocentowanie" 
+				converterMessage="Wartość musi być liczbą" validatorMessage="Oprocentowanie musi być od 1% do 100% (0.01 - 1)">
+				<f:validateDoubleRange minimum="0.01" maximum="1"/>
+				</p:inputText>
+				<p:message for="opr"/>
 		
-		<p:commandButton value="Oblicz" action="#{kredytBB.oblicz()}" update="@form"/>
+				<p:commandButton value="Oblicz" action="#{kredytBB.oblicz()}" update="@form"/>
 		
-		</h:panelGrid>
+			</h:panelGrid>
 		
 		<p:messages id="msg" />
 		
 	</h:form>
 	</p:panel>
-
-</h:body>
+	</ui:define>
+</ui:composition>
 </html>

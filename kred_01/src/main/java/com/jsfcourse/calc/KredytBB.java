@@ -11,9 +11,9 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 //@SessionScoped
 public class KredytBB {
-	private String kwota;
-	private String okres;
-	private String procent;
+	private Double kwota;
+	private Integer okres;
+	private Double procent;
 	private Double rata;
 
 	@Inject
@@ -21,27 +21,27 @@ public class KredytBB {
 
 	
 
-	public String getKwota() {
+	public Double getKwota() {
 		return kwota;
 	}
 
-	public void setKwota(String kwota) {
+	public void setKwota(Double kwota) {
 		this.kwota = kwota;
 	}
 
-	public String getOkres() {
+	public Integer getOkres() {
 		return okres;
 	}
 
-	public void setOkres(String okres) {
+	public void setOkres(Integer okres) {
 		this.okres = okres;
 	}
 
-	public String getProcent() {
+	public Double getProcent() {
 		return procent;
 	}
 
-	public void setProcent(String procent) {
+	public void setProcent(Double procent) {
 		this.procent = procent;
 	}
 
@@ -54,22 +54,22 @@ public class KredytBB {
 	}
 
 	public boolean obliczRate() {
-		try {
-			double x = Double.parseDouble(this.kwota);
-			double y = Double.parseDouble(this.okres);
-			double z = Double.parseDouble(this.procent);
+		//try {
+			//double x = Double.parseDouble(this.kwota);
+			//double y = Double.parseDouble(this.okres);
+			//double z = Double.parseDouble(this.procent);
 			
-			double w = ((x + (x * z))/y);
+			double w = ((kwota + (kwota * procent))/okres);
 
 			rata = (double) (Math.round(w*100.0)/100.0);
 
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
 			return true;
-		} catch (Exception e) {
-			ctx.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
-			return false;
-		}
+		//} catch (Exception e) {
+			//ctx.addMessage(null,
+					//new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
+			//return false;
+		//}
 	}
 
 	
